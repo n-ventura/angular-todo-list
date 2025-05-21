@@ -1,0 +1,47 @@
+<div class="container">
+    <h1>Lista de Tarefas</h1>
+
+    <form #frm="ngForm" class="add-item-form" (ngSubmit)="adicinaTarefa()">
+        <input type="text" 
+               id="item" 
+               name="item"
+               [(ngModel)]="tarefa" 
+               placeholder="Digite o nome do item" />
+               
+        <button type="submit">Adicionar</button>
+
+        <button type="button" (click)="limparLista()">Limpar Lista</button>
+    </form>
+
+    <table>
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Item</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @for( elemento of tarefas; track elemento.id ){
+                <tr>
+                    <td>{{ elemento.id }}</td>
+                    <td>
+                        <span [ngClass]="{ 'item-riscado' : elemento.completed }" >
+                            {{ elemento.title }}
+                        </span>
+                    </td>
+                    <td>
+                        <input type="checkbox" 
+                               (click)="riscarItem(elemento)" 
+                               [checked]="elemento.completed" />
+                    </td>
+                </tr>
+            } @empty {
+                <tr colspan="3">
+                    Nenhum item adicionado.
+                </tr>
+            }
+
+        </tbody>
+    </table>
+</div>
